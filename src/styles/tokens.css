@@ -1,0 +1,51 @@
+:root {
+  /* Colors */
+  --color-bg-primary: rgba(255, 255, 255, 0.8);
+  --color-bg-secondary: rgba(255, 255, 255, 0.5);
+  --color-bg-tertiary: rgba(255, 255, 255, 0.3);
+  --color-text-primary: #1d1d1f;
+  --color-text-secondary: #86868b;
+  --color-accent: #007aff;
+  --color-accent-hover: #0051d5;
+  
+  /* macOS traffic lights */
+  --color-red: #ff5f57;
+  --color-yellow: #febc2e;
+  --color-green: #28c840;
+  
+  /* Blur & Opacity */
+  --blur-sm: 8px;
+  --blur-md: 16px;
+  --blur-lg: 24px;
+  --opacity-glass: 0.8;
+  
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+  
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  
+  /* Menu Bar */
+  --menubar-height: 28px;
+  
+  /* Dock */
+  --dock-height: 70px;
+  --dock-icon-size: 48px;
+  --dock-icon-size-hover: 64px;
+  
+  /* Window */
+  --window-titlebar-height: 32px;
+}
