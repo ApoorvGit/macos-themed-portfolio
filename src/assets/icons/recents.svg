@@ -1,0 +1,11 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="36" viewBox="0 0 40 36" fill="none" aria-label="Clock icon">
+  <g stroke="#0078D4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer circle -->
+    <circle cx="20" cy="18" r="15.5"/>
+    <!-- Hour hand: up -->
+    <path d="M20 18 V10"/>
+    <!-- Minute hand: left -->
+    <path d="M20 18 H12"/>
+  </g>
+</svg>
