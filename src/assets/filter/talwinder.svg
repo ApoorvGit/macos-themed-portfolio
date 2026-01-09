@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 800 1100" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+
+    <!-- Grain / paint texture -->
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="8"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.15"/>
+      </feComponentTransfer>
+      <feBlend mode="multiply"/>
+    </filter>
+
+    <!-- Soft shadow -->
+    <filter id="softShadow">
+      <feDropShadow dx="-8" dy="14" stdDeviation="20" flood-opacity="0.35"/>
+    </filter>
+
+    <!-- Skull paint roughness -->
+    <filter id="paintDistort">
+      <feTurbulence type="turbulence" baseFrequency="0.015" numOctaves="3" seed="3"/>
+      <feDisplacementMap scale="35"/>
+    </filter>
+
+    <!-- Bandana fabric -->
+    <filter id="fabric">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="12"/>
+      <feDisplacementMap scale="12"/>
+    </filter>
+
+    <!-- Skin gradient -->
+    <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a3b2f"/>
+      <stop offset="100%" stop-color="#241b14"/>
+    </linearGradient>
+
+    <!-- Skull paint gradient -->
+    <linearGradient id="paintGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f4f1ea"/>
+      <stop offset="100%" stop-color="#cfc7bb"/>
+    </linearGradient>
+
+  </defs>
+
+  <!-- Background transparent -->
+
+  <!-- Head base -->
+  <path
+    d="M170 240
+       C130 120 260 20 400 20
+       C560 20 690 140 640 260
+       C700 460 680 780 540 930
+       C480 1000 320 1000 260 930
+       C120 780 100 460 170 240 Z"
+    fill="url(#skinGrad)"
+    filter="url(#softShadow)"/>
+
+  <!-- Skull paint (face paint, NOT anatomy) -->
+  <path
+    d="M220 260
+       C260 150 540 150 580 260
+       C630 470 600 760 500 860
+       C450 910 350 910 300 860
+       C200 760 170 470 220 260 Z"
+    fill="url(#paintGrad)"
+    filter="url(#paintDistort)"/>
+
+  <!-- Eye voids -->
+  <path
+    d="M250 420
+       C270 330 390 320 410 390
+       C430 470 360 520 300 500
+       C260 485 240 455 250 420 Z"
+    fill="#000"/>
+
+  <path
+    d="M550 420
+       C530 330 410 320 390 390
+       C370 470 440 520 500 500
+       C540 485 560 455 550 420 Z"
+    fill="#000"/>
+
+  <!-- Nose -->
+  <path
+    d="M390 500
+       C360 600 380 650 400 680
+       C420 650 440 600 410 500 Z"
+    fill="#000"/>
+
+  <!-- Mouth void -->
+  <path
+    d="M260 700
+       C320 800 480 800 540 700
+       C560 760 540 830 470 860
+       C420 880 380 880 330 860
+       C260 830 240 760 260 700 Z"
+    fill="#000"/>
+
+  <!-- Teeth silhouettes -->
+  <path
+    d="M300 710
+       L310 820
+       L330 815
+       L340 710
+
+       M340 710
+       L355 830
+       L380 830
+       L385 705
+
+       M385 705
+       L400 840
+       L425 840
+       L430 705
+
+       M430 705
+       L445 830
+       L470 830
+       L465 710"
+    fill="#e6e0d6"/>
+
+  <!-- Bandana -->
+  <path
+    d="M80 120
+       C220 40 580 40 720 120
+       L720 300
+       L80 300 Z"
+    fill="#0a0a0a"
+    filter="url(#fabric)"/>
+
+  <!-- Bandana folds -->
+  <path d="M140 160 Q400 120 660 160"
+        stroke="#1a1a1a" stroke-width="50" fill="none" opacity="0.7"/>
+  <path d="M160 230 Q400 190 640 230"
+        stroke="#000" stroke-width="35" fill="none"/>
+
+  <!-- KARMA text (ink-worn) -->
+  <text
+    x="400" y="210"
+    font-family="Impact, Arial Black, sans-serif"
+    font-size="110"
+    letter-spacing="6"
+    fill="#f2f2f2"
+    opacity="0.92"
+    text-anchor="middle">
+    KARMA
+  </text>
+
+  <!-- Grain overlay -->
+  <rect width="100%" height="100%" filter="url(#grain)" opacity="0.4"/>
+
+</svg>
