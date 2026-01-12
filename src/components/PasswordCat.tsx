@@ -141,7 +141,7 @@ export const PasswordCat: React.FC = () => {
 };
 
 // Animated Walking Cat Component
-const WalkingCat: React.FC<{ isWalking: boolean }> = ({ isWalking }) => {
+const WalkingCat: React.FC<{ isWalking: boolean }> = () => {
   return (
     <div className="relative w-80 h-80 mb-6 flex items-end justify-center">
       <img 
