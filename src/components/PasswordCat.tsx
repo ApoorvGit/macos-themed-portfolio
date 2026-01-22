@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import catGif from '../assets/walking-cat.gif';
 
 export const PasswordCat: React.FC = () => {
-  const [position, setPosition] = useState(-200); // Start off-screen left
-  const [showBubble, setShowBubble] = useState(false);
+  const [position, setPosition] = useState(-200);
   const [isDismissed, setIsDismissed] = useState(false);
   const [displayText, setDisplayText] = useState<string[]>(['', '', '']);
   const [currentStep, setCurrentStep] = useState(0);
-  const [bubblePosition, setBubblePosition] = useState(0);
   
   const messages = [
     "Hey there! 🐱",
@@ -16,14 +14,13 @@ export const PasswordCat: React.FC = () => {
   ];
 
   useEffect(() => {
-    // Cat walks in from left
     const walkTimer = setInterval(() => {
       setPosition((prev) => {
-        if (prev >= 300) {
+        if (prev >= 100) {
           clearInterval(walkTimer);
           return 100;
         }
-        return prev + 3; // Walking speed
+        return prev + 3;
       });
     }, 20);
 
@@ -31,16 +28,7 @@ export const PasswordCat: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Show bubble when cat reaches position
-    if (position >= 100 && !showBubble) {
-      setBubblePosition(220); // Fixed position: moved more to the right
-      setTimeout(() => setShowBubble(true), 300);
-    }
-  }, [position, showBubble]);
-
-  useEffect(() => {
-    // Typing effect
-    if (!showBubble || currentStep >= messages.length) return;
+    if (currentStep >= messages.length) return;
 
     const currentMessage = messages[currentStep];
     let charIndex = 0;
@@ -55,32 +43,27 @@ export const PasswordCat: React.FC = () => {
         charIndex++;
       } else {
         clearInterval(typeTimer);
-        // Move to next message after delay
         setTimeout(() => {
           setCurrentStep((prev) => prev + 1);
         }, 800);
       }
-    }, 50); // Typing speed
+    }, 50);
 
     return () => clearInterval(typeTimer);
-  }, [showBubble, currentStep]);
+  }, [currentStep]);
 
   if (isDismissed) return null;
 
   return (
     <>
-      {/* Speech Bubble - Fixed position */}
-      {showBubble && (
-        <div 
-          className="fixed bottom-56 z-50 w-[400px]"
-          style={{ 
-            left: `${bubblePosition}px`, 
-            transform: 'translateX(-50%)',
-            animation: 'bubbleFadeIn 0.4s ease-out'
-          }}
+      <div 
+        className="fixed bottom-56 z-50 w-[400px]"
+        style={{ 
+          left: `${position + 160}px`,
+          transform: 'translateX(-50%)'
+        }}
         >
           <div className="relative bg-white rounded-3xl shadow-2xl px-8 py-6 w-[400px] backdrop-blur-sm border-2 border-gray-200">
-            {/* Close button */}
             <button
               onClick={() => setIsDismissed(true)}
               className="absolute -top-2 -right-2 w-8 h-8 bg-red-500 hover:bg-red-600 rounded-full text-white text-base font-bold shadow-lg transition-transform hover:scale-110 flex items-center justify-center"
@@ -121,17 +104,14 @@ export const PasswordCat: React.FC = () => {
               )}
             </div>
 
-            {/* Tail/Arrow pointing down */}
             <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-px">
               <div className="border-[12px] border-transparent border-t-white"></div>
             </div>
           </div>
         </div>
-      )}
 
-      {/* Walking Cat with Animation */}
       <div
-        className="fixed bottom-0 z-50 transition-all duration-200"
+        className="fixed bottom-0 z-50"
         style={{ left: `${position}px` }}
       >
         <WalkingCat isWalking={position < 100} />
@@ -140,7 +120,6 @@ export const PasswordCat: React.FC = () => {
   );
 };
 
-// Animated Walking Cat Component
 const WalkingCat: React.FC<{ isWalking: boolean }> = () => {
   return (
     <div className="relative w-80 h-80 mb-6 flex items-end justify-center">
