@@ -23,6 +23,7 @@ import {
   SiriIcon,
 } from '../components/MacOSIcons';
 
+// Content components
 const ExperienceContent: React.FC = () => {
   const [selectedNote, setSelectedNote] = React.useState(0);
   
@@ -206,7 +207,8 @@ const ContactContent: React.FC = () => (
       </div>
       <div className="mt-6">
         <a
-          href="/resume.pdf"
+          href={`${import.meta.env.BASE_URL}resume.pdf`}
+          download
           className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -368,6 +370,7 @@ Backend • Frontend • Cloud • DevOps • AI/ML`,
   };
 
   const handleOpenResume = () => {
+    const basePath = import.meta.env.BASE_URL;
     openWindow({
       id: 'resume',
       title: 'Resume.pdf',
@@ -375,7 +378,7 @@ Backend • Frontend • Cloud • DevOps • AI/ML`,
       y: 80,
       width: 900,
       height: 700,
-      content: <PDFViewer pdfUrl="/resume.pdf" />,
+      content: <PDFViewer pdfUrl={`${basePath}resume.pdf`} />,
     });
   };
 
@@ -452,6 +455,7 @@ Backend • Frontend • Cloud • DevOps • AI/ML`,
 
         <Dock items={dockItems} />
 
+        {/* Siri Assistant Popup - Top Right Corner */}
         {siriOpen && (
           <>
             {/* Siri Popup */}
