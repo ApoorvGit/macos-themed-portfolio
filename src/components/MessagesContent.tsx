@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { getAIReply } from '../lib/groq-service';
 
@@ -16,29 +16,20 @@ export const MessagesContent: React.FC = () => {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    // Get or create unique user ID
-    let storedUserId = localStorage.getItem('portfolio_user_id');
-    if (!storedUserId) {
-      storedUserId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      localStorage.setItem('portfolio_user_id', storedUserId);
-    }
-    setUserId(storedUserId);
-
-    // Load messages for this user
-    loadMessages(storedUserId);
+  const scrollToBottom = useCallback(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  const saveMessages = useCallback((msgs: Message[], uid: string) => {
+    localStorage.setItem(`messages_${uid}`, JSON.stringify(msgs));
+  }, []);
 
-  const loadMessages = (uid: string) => {
+  const loadMessages = useCallback((uid: string) => {
     const storedMessages = localStorage.getItem(`messages_${uid}`);
     if (storedMessages) {
       const parsed = JSON.parse(storedMessages);
       // Convert timestamp strings back to Date objects
-      const messagesWithDates = parsed.map((msg: any) => ({
+      const messagesWithDates = parsed.map((msg: Message & { timestamp: string }) => ({
         ...msg,
         timestamp: new Date(msg.timestamp)
       }));
@@ -54,15 +45,27 @@ export const MessagesContent: React.FC = () => {
       setMessages([welcomeMessage]);
       saveMessages([welcomeMessage], uid);
     }
-  };
+  }, [saveMessages]);
 
-  const saveMessages = (msgs: Message[], uid: string) => {
-    localStorage.setItem(`messages_${uid}`, JSON.stringify(msgs));
-  };
+  useEffect(() => {
+    // Get or create unique user ID
+    let storedUserId = localStorage.getItem('portfolio_user_id');
+    if (!storedUserId) {
+      storedUserId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      localStorage.setItem('portfolio_user_id', storedUserId);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setUserId(storedUserId);
+    } else if (userId !== storedUserId) {
+      setUserId(storedUserId);
+    }
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+    // Load messages for this user
+    loadMessages(storedUserId);
+  }, [loadMessages, userId, saveMessages]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, scrollToBottom]);
 
   const handleSendMessage = async () => {
     if (!inputText.trim()) return;
