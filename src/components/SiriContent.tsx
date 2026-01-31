@@ -26,10 +26,11 @@ export const SiriContent: React.FC<SiriContentProps> = ({ onOpenApp }) => {
     synthRef.current = window.speechSynthesis;
 
     // Initialize speech recognition
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const SpeechRecognition =
-      (window as any).SpeechRecognition ||
-      (window as any).webkitSpeechRecognition;
+    const SpeechRecognition: typeof window.SpeechRecognition =
+      (window as unknown as Record<string, unknown>)
+        .SpeechRecognition ||
+      ((window as unknown as Record<string, unknown>)
+        .webkitSpeechRecognition as unknown as typeof window.SpeechRecognition);
 
     if (SpeechRecognition) {
       const recognition = new SpeechRecognition();
