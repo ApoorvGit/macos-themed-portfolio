@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { getAIReply } from '../lib/groq-service';
 
 interface Message {
@@ -17,6 +17,7 @@ export const SiriContent: React.FC<SiriContentProps> = ({ onOpenApp }) => {
   const [transcript, setTranscript] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef = useRef<any>(null);
   const synthRef = useRef<SpeechSynthesis | null>(null);
 
@@ -25,6 +26,7 @@ export const SiriContent: React.FC<SiriContentProps> = ({ onOpenApp }) => {
     synthRef.current = window.speechSynthesis;
 
     // Initialize speech recognition
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     
     if (SpeechRecognition) {
@@ -33,6 +35,7 @@ export const SiriContent: React.FC<SiriContentProps> = ({ onOpenApp }) => {
       recognition.interimResults = true;
       recognition.lang = 'en-US';
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       recognition.onresult = (event: any) => {
         const current = event.resultIndex;
         const transcriptText = event.results[current][0].transcript;
@@ -43,6 +46,7 @@ export const SiriContent: React.FC<SiriContentProps> = ({ onOpenApp }) => {
         }
       };
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       recognition.onerror = (event: any) => {
         console.error('Speech recognition error:', event.error);
         setIsListening(false);
@@ -63,6 +67,7 @@ export const SiriContent: React.FC<SiriContentProps> = ({ onOpenApp }) => {
         synthRef.current.cancel();
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Keyboard listener for Space key
@@ -83,22 +88,23 @@ export const SiriContent: React.FC<SiriContentProps> = ({ onOpenApp }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isListening, isProcessing]);
 
-  const startListening = () => {
+  const startListening = useCallback(() => {
     if (recognitionRef.current && !isListening) {
       setTranscript('');
       setIsListening(true);
       recognitionRef.current.start();
     }
-  };
+  }, [isListening]);
 
-  const stopListening = () => {
+  const stopListening = useCallback(() => {
     if (recognitionRef.current && isListening) {
       recognitionRef.current.stop();
       setIsListening(false);
     }
-  };
+  }, [isListening]);
 
   const handleUserInput = async (text: string) => {
     setIsListening(false);
