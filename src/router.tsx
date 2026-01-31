@@ -2,17 +2,7 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { LockPage } from './pages/LockPage';
 import { DesktopPage } from './pages/DesktopPage';
 import { GroqTest } from './components/GroqTest';
-
-// Protected route wrapper
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const isUnlocked = sessionStorage.getItem('unlocked') === 'true';
-  
-  if (!isUnlocked) {
-    return <Navigate to="/" replace />;
-  }
-  
-  return <>{children}</>;
-};
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 export const router = createBrowserRouter([
   {
