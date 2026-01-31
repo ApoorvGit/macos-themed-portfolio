@@ -50,6 +50,7 @@ export const PasswordCat: React.FC = () => {
     }, 50);
 
     return () => clearInterval(typeTimer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentStep]);
 
   if (isDismissed) return null;
