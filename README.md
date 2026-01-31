@@ -29,34 +29,41 @@ This is an innovative portfolio website that transforms the traditional web expe
 ## 📦 Technology Stack
 
 ### Core Framework
+
 - **React 19.2.0** - Latest React with improved performance and features
 - **TypeScript 5.9.3** - Type-safe development with strong typing
 - **Vite 7.2.4** - Lightning-fast build tool and dev server
 
 ### Styling & UI
+
 - **Tailwind CSS 3.4.19** - Utility-first CSS framework for rapid UI development
 - **PostCSS** - CSS processing and transformations
 
 ### State & Navigation
+
 - **Zustand 5.0.9** - Lightweight state management for window states
 - **React Router DOM 7.10.1** - Client-side routing with protected routes
 - **Session Storage** - Authentication state persistence
 
 ### Interactive Features
+
 - **@dnd-kit** - Modern drag-and-drop toolkit for React
 - **react-rnd 10.5.2** - Resizable and draggable windows
 - **@szhsin/react-menu 4.5.1** - Context menu implementation
 
 ### Document & Media
+
 - **react-pdf 10.2.0** - PDF viewing capabilities
 - **pdfjs-dist 5.4.449** - PDF.js library for rendering PDFs
 - **react-markdown 10.1.0** - Markdown parsing and rendering
 
 ### AI & Computer Vision
+
 - **Groq API** - Ultra-fast AI inference for Siri-like interactions
 - **MediaPipe Face Mesh** - Real-time face detection for FaceTime simulation
 
 ### Developer Tools
+
 - **ESLint 9.39.2** - Code linting with TypeScript support
 - **Prettier 3.7.4** - Opinionated code formatting
 - **TypeScript ESLint 8.46.4** - TypeScript-specific linting rules
@@ -117,30 +124,34 @@ macos-themed-portfolio/
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/ApoorvGit/macos-themed-portfolio.git
    cd macos-themed-portfolio
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Set up environment variables**
-   
+
    Create a `.env` file in the root directory:
+
    ```env
    VITE_GROQ_API_KEY=your_groq_api_key_here
    ```
-   
+
    Get your free Groq API key from [https://console.groq.com](https://console.groq.com)
 
 4. **Start development server**
+
    ```bash
    npm run dev
    ```
-   
+
    The app will be available at `http://localhost:5173`
 
 ### Available Scripts
@@ -247,6 +258,7 @@ npm run build
 ```
 
 **Compatible Hosting Services:**
+
 - ✅ GitHub Pages (automated with Actions)
 - ✅ Vercel (`vercel deploy`)
 - ✅ Netlify (drag & drop `dist/`)
@@ -263,12 +275,12 @@ npm run build
    ```ts
    export const APPS = {
      yourApp: {
-       id: 'your-app',
-       title: 'Your App',
+       id: "your-app",
+       title: "Your App",
        icon: YourIcon,
        component: YourAppContent,
-     }
-   }
+     },
+   };
    ```
 3. **Register in window manager** (Zustand store)
 4. **Add dock icon** in `src/components/Dock.tsx`
@@ -315,6 +327,7 @@ This project is open source and available under the **MIT License**.
 ## 👨‍💻 Author
 
 **Apoorv Mishra**
+
 - GitHub: [@ApoorvGit](https://github.com/ApoorvGit)
 - Portfolio: [Live Demo](https://apoorvgit.github.io/macos-themed-portfolio/)
 - Email: apoorvmishra1000@gmail.com
@@ -327,7 +340,6 @@ This project is open source and available under the **MIT License**.
 - All open-source library maintainers used in this project
 - Groq for providing ultra-fast AI inference
 - MediaPipe team for face detection technology
-
 
 **Made with ❤️ using React + TypeScript + Vite**
 

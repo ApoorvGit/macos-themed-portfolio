@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
-import { Rnd } from 'react-rnd';
-import { useWindowStore } from '../lib/window-manager';
+import React, { useEffect, useRef } from "react";
+import { Rnd } from "react-rnd";
+import { useWindowStore } from "../lib/window-manager";
 
 interface WindowProps {
   id: string;
@@ -76,29 +76,43 @@ export const Window: React.FC<WindowProps> = ({
                 onClick={onClose}
                 className="w-3 h-3 rounded-full bg-[#ff5f56] hover:bg-[#ff4136] focus:outline-none border border-black/10 shadow-sm group relative"
               >
-                <span className="absolute inset-0 flex items-center justify-center text-[8px] text-black/70 opacity-0 group-hover:opacity-100">✕</span>
+                <span className="absolute inset-0 flex items-center justify-center text-[8px] text-black/70 opacity-0 group-hover:opacity-100">
+                  ✕
+                </span>
               </button>
               <button
                 aria-label="Minimize"
                 onClick={onMinimize}
                 className="w-3 h-3 rounded-full bg-[#ffbd2e] hover:bg-[#ffaa00] focus:outline-none border border-black/10 shadow-sm group relative"
               >
-                <span className="absolute inset-0 flex items-center justify-center text-[8px] text-black/70 opacity-0 group-hover:opacity-100">−</span>
+                <span className="absolute inset-0 flex items-center justify-center text-[8px] text-black/70 opacity-0 group-hover:opacity-100">
+                  −
+                </span>
               </button>
               <button
                 aria-label="Zoom"
                 className="w-3 h-3 rounded-full bg-[#27c93f] hover:bg-[#00d14a] focus:outline-none border border-black/10 shadow-sm group relative"
               >
-                <span className="absolute inset-0 flex items-center justify-center text-[8px] text-black/70 opacity-0 group-hover:opacity-100">+</span>
+                <span className="absolute inset-0 flex items-center justify-center text-[8px] text-black/70 opacity-0 group-hover:opacity-100">
+                  +
+                </span>
               </button>
             </div>
-            <span className="font-semibold text-[13px] text-gray-700 tracking-tight">{title}</span>
+            <span className="font-semibold text-[13px] text-gray-700 tracking-tight">
+              {title}
+            </span>
             <div className="w-[52px]" />
           </div>
         )}
-        
+
         {/* Content */}
-        <div className={noTitleBar ? "flex-1 overflow-hidden" : "flex-1 overflow-auto custom-scrollbar p-6 bg-gradient-to-b from-white/90 to-white/95"}>
+        <div
+          className={
+            noTitleBar
+              ? "flex-1 overflow-hidden"
+              : "flex-1 overflow-auto custom-scrollbar p-6 bg-gradient-to-b from-white/90 to-white/95"
+          }
+        >
           {children}
         </div>
       </div>
