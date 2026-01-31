@@ -9,6 +9,8 @@ import { MessagesContent } from '../components/MessagesContent';
 import { SiriContent } from '../components/SiriContent';
 import { PDFViewer } from '../components/PDFViewer';
 import { FinderWindow } from '../components/FinderWindow';
+import { SafariBrowser } from '../components/SafariBrowser';
+import { GoogleSearchContent } from '../components/GoogleSearchContent';
 import { useWindowStore } from '../lib/window-manager';
 import { ICON_IDS, WINDOW_DEFAULTS, WINDOW_TITLES } from '../lib/constants';
 import {
@@ -127,36 +129,6 @@ const SkillsContent: React.FC = () => (
     </div>
     <div className="mt-4">
       <span className="text-blue-400">$</span> <span className="animate-pulse">_</span>
-    </div>
-  </div>
-);
-
-const BlogContent: React.FC = () => (
-  <div className="prose max-w-none">
-    <h2 className="text-2xl font-bold mb-4">Blog Posts</h2>
-    <div className="space-y-4">
-      <article className="border-b border-gray-200 pb-4">
-        <h3 className="text-xl font-semibold mb-2">
-          <a href="#" className="text-blue-600 hover:underline">
-            Building a macOS-style UI with React
-          </a>
-        </h3>
-        <p className="text-sm text-gray-500 mb-2">December 15, 2025</p>
-        <p className="text-gray-700">
-          Learn how to create a beautiful macOS-inspired interface using React, Tailwind CSS, and modern web technologies...
-        </p>
-      </article>
-      <article className="border-b border-gray-200 pb-4">
-        <h3 className="text-xl font-semibold mb-2">
-          <a href="#" className="text-blue-600 hover:underline">
-            Deploying to AWS EKS with Helm
-          </a>
-        </h3>
-        <p className="text-sm text-gray-500 mb-2">December 10, 2025</p>
-        <p className="text-gray-700">
-          A complete guide to deploying your applications to AWS EKS using Helm charts for configuration management...
-        </p>
-      </article>
     </div>
   </div>
 );
@@ -342,7 +314,16 @@ Backend • Frontend • Cloud • DevOps • AI/ML`,
         content = <SkillsContent />;
         break;
       case ICON_IDS.BLOG:
-        content = <BlogContent />;
+        noTitleBar = true;
+        content = (
+          <SafariBrowser 
+            initialUrl="https://apoorvgit.github.io/macos-themed-portfolio/"
+            onClose={() => closeWindow(id)}
+            onMinimize={() => minimizeWindow(id)}
+          >
+            <GoogleSearchContent onOpenResume={handleOpenResume} />
+          </SafariBrowser>
+        );
         break;
       case ICON_IDS.GALLERY:
         content = <GalleryContent />;
