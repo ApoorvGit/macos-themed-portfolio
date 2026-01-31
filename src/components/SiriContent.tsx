@@ -27,8 +27,7 @@ export const SiriContent: React.FC<SiriContentProps> = ({ onOpenApp }) => {
 
     // Initialize speech recognition
     const SpeechRecognition: typeof window.SpeechRecognition =
-      (window as unknown as Record<string, unknown>)
-        .SpeechRecognition ||
+      (window as unknown as Record<string, unknown>).SpeechRecognition ||
       ((window as unknown as Record<string, unknown>)
         .webkitSpeechRecognition as unknown as typeof window.SpeechRecognition);
 
