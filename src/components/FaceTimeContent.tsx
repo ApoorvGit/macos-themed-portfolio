@@ -1,8 +1,14 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { FaceMesh } from '@mediapipe/face_mesh';
+import { FaceMesh, type Results } from '@mediapipe/face_mesh';
 import { Camera } from '@mediapipe/camera_utils';
 import talwinderPng from '../assets/filter/talwinder.png';
 import talwinderSound from '../assets/filter/talwinder.m4a';
+
+interface Landmark {
+  x: number;
+  y: number;
+  z: number;
+}
 
 export const FaceTimeContent: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -45,13 +51,6 @@ export const FaceTimeContent: React.FC = () => {
     }
   }, [filterMode]);
 
-  useEffect(() => {
-    startCamera();
-    return () => {
-      stopCamera();
-    };
-  }, []);
-
   const stopCamera = () => {
     if (cameraRef.current) {
       cameraRef.current.stop();
@@ -65,6 +64,39 @@ export const FaceTimeContent: React.FC = () => {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
     }
+  };
+
+  const onResults = (results: Results) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const video = videoRef.current;
+    if (!video) return;
+
+    ctx.save();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Mirror horizontally (front camera effect)
+    ctx.scale(-1, 1);
+    ctx.translate(-canvas.width, 0);
+    
+    // Draw the video frame
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    // Apply selected filter
+    if (results.multiFaceLandmarks && results.multiFaceLandmarks.length > 0) {
+      const landmarks = results.multiFaceLandmarks[0];
+      
+      if (filterModeRef.current === 'cat') {
+        drawCatOverlay(ctx, landmarks, canvas.width, canvas.height);
+      } else if (filterModeRef.current === 'talwinder') {
+        drawTalwinderOverlay(ctx, landmarks, canvas.width, canvas.height);
+      }
+    }
+    ctx.restore();
   };
 
   const startCamera = async () => {
@@ -115,47 +147,17 @@ export const FaceTimeContent: React.FC = () => {
     }
   };
 
-  const onResults = (results: any) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const video = videoRef.current;
-    if (!video) return;
-
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-
-    // Draw mirrored video
-    ctx.save();
-    ctx.scale(-1, 1);
-    ctx.drawImage(results.image, -canvas.width, 0, canvas.width, canvas.height);
-    ctx.restore();
-
-    // If face detected, draw cat overlay
-    if (results.multiFaceLandmarks && results.multiFaceLandmarks.length > 0) {
-      const landmarks = results.multiFaceLandmarks[0];
-      
-      // Mirror the canvas for drawing
-      ctx.save();
-      ctx.scale(-1, 1);
-      ctx.translate(-canvas.width, 0);
-      
-      if (filterModeRef.current === 'cat') {
-        drawCatOverlay(ctx, landmarks, canvas.width, canvas.height);
-      } else {
-        drawTalwinderOverlay(ctx, landmarks, canvas.width, canvas.height);
-      }
-      
-      ctx.restore();
-    }
-  };
+  useEffect(() => {
+    startCamera();
+    return () => {
+      stopCamera();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const drawCatOverlay = (
     ctx: CanvasRenderingContext2D,
-    landmarks: any[],
+    landmarks: Landmark[],
     width: number,
     height: number
   ) => {
@@ -192,11 +194,14 @@ export const FaceTimeContent: React.FC = () => {
     const isSmiling = mouthWidth > faceWidth * 0.25;
     const isMouthOpen = mouthOpenness > 15;
     
-    // Detect eye state (blink)
+    // Detect eye state (blink) - using ratio of eye height to face height
     const leftEyeOpenness = Math.abs((leftEyeLower.y - leftEyeUpper.y) * height);
     const rightEyeOpenness = Math.abs((rightEyeLower.y - rightEyeUpper.y) * height);
-    const isLeftEyeClosed = leftEyeOpenness < 5;
-    const isRightEyeClosed = rightEyeOpenness < 5;
+    
+    // Eyes are closed if openness is less than 1% of face height
+    const eyeClosedThreshold = faceHeight * 0.01;
+    const isLeftEyeClosed = leftEyeOpenness < eyeClosedThreshold;
+    const isRightEyeClosed = rightEyeOpenness < eyeClosedThreshold;
 
     // Calculate head tilt angle
     const eyeAngle = Math.atan2(
@@ -412,7 +417,7 @@ export const FaceTimeContent: React.FC = () => {
 
   const drawTalwinderOverlay = (
     ctx: CanvasRenderingContext2D,
-    landmarks: any[],
+    landmarks: Landmark[],
     width: number,
     height: number
   ) => {
