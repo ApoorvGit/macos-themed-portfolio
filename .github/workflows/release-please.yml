@@ -1,0 +1,30 @@
+name: Release Management
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    name: Create Release PR
+    runs-on: ubuntu-latest
+    outputs:
+      release-created: ${{ steps.release.outputs.release_created }}
+      tag-name: ${{ steps.release.outputs.tag_name }}
+    steps:
+      - name: Run Release Please
+        id: release
+        uses: googleapis/release-please-action@v4
+        with:
+          release-type: node
+          package-name: macos-themed-portfolio
+
+      - name: Notify release created
+        if: steps.release.outputs.release_created
+        run: |
+          echo "::notice::Release ${{ steps.release.outputs.tag_name }} has been created"
