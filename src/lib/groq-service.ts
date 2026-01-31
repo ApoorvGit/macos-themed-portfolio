@@ -1,6 +1,6 @@
 // Groq API Service
 const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
-const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
 
 // Apoorv's personality and background for the LLM
 const SYSTEM_PROMPT = `You are Apoorv Mishra, a real person - a Software Development Engineer at Expedia Group. You are NOT an AI assistant, you ARE Apoorv responding to messages on your portfolio website.
@@ -66,7 +66,7 @@ You're responding on your interactive macOS portfolio website. Visitors are like
 Remember: You ARE Apoorv. You're "a copy of Apoorv in the world of internet" - never mention models, AI companies, or technical implementation.`;
 
 interface GroqMessage {
-  role: 'system' | 'user' | 'assistant';
+  role: "system" | "user" | "assistant";
   content: string;
 }
 
@@ -78,14 +78,20 @@ interface GroqResponse {
   }>;
 }
 
-export async function getAIReply(userMessage: string, conversationHistory: Array<{ text: string; sender: string }> = [], isSiri: boolean = false): Promise<string> {
+export async function getAIReply(
+  userMessage: string,
+  conversationHistory: Array<{ text: string; sender: string }> = [],
+  isSiri: boolean = false,
+): Promise<string> {
   if (!GROQ_API_KEY) {
-    throw new Error('Groq API key is not configured. Please add VITE_GROQ_API_KEY to your .env file.');
+    throw new Error(
+      "Groq API key is not configured. Please add VITE_GROQ_API_KEY to your .env file.",
+    );
   }
 
   try {
     // Build conversation context with additional Siri-specific instructions
-    const systemPrompt = isSiri 
+    const systemPrompt = isSiri
       ? `${SYSTEM_PROMPT}\n\nIMPORTANT: You are being used in a voice assistant. Follow these rules strictly:
 - Keep responses SHORT (1-3 sentences maximum)
 - Use simple, natural conversational language
@@ -97,33 +103,31 @@ export async function getAIReply(userMessage: string, conversationHistory: Array
 - Just plain, natural sentences that sound good when spoken aloud`
       : SYSTEM_PROMPT;
 
-    const messages: GroqMessage[] = [
-      { role: 'system', content: systemPrompt }
-    ];
+    const messages: GroqMessage[] = [{ role: "system", content: systemPrompt }];
 
     // Add recent conversation history (last 5 messages for context)
     const recentHistory = conversationHistory.slice(-5);
-    recentHistory.forEach(msg => {
+    recentHistory.forEach((msg) => {
       messages.push({
-        role: msg.sender === 'user' ? 'user' : 'assistant',
-        content: msg.text
+        role: msg.sender === "user" ? "user" : "assistant",
+        content: msg.text,
       });
     });
 
     // Add the current user message
     messages.push({
-      role: 'user',
-      content: userMessage
+      role: "user",
+      content: userMessage,
     });
 
     const response = await fetch(GROQ_API_URL, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Authorization': `Bearer ${GROQ_API_KEY}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${GROQ_API_KEY}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile', // Fast and high quality
+        model: "llama-3.3-70b-versatile", // Fast and high quality
         messages: messages,
         temperature: 0.7, // Balance between creativity and consistency
         max_tokens: 200, // Keep responses concise
@@ -132,44 +136,60 @@ export async function getAIReply(userMessage: string, conversationHistory: Array
     });
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
-      throw new Error(`Groq API error: ${response.status} - ${JSON.stringify(errorData)}`);
+      const errorData = await response
+        .json()
+        .catch(() => ({ error: "Unknown error" }));
+      throw new Error(
+        `Groq API error: ${response.status} - ${JSON.stringify(errorData)}`,
+      );
     }
 
     const data: GroqResponse = await response.json();
-    return data.choices[0]?.message?.content || 'Sorry, I couldn\'t generate a response. Please try again!';
+    return (
+      data.choices[0]?.message?.content ||
+      "Sorry, I couldn't generate a response. Please try again!"
+    );
   } catch (error) {
-    console.error('Error calling Groq API:', error);
-    
+    console.error("Error calling Groq API:", error);
+
     // Provide helpful error messages
     if (error instanceof Error) {
-      if (error.message.includes('API key')) {
-        throw new Error('Invalid API key. Please check your Groq API key in the .env file.');
+      if (error.message.includes("API key")) {
+        throw new Error(
+          "Invalid API key. Please check your Groq API key in the .env file.",
+        );
       }
-      if (error.message.includes('401')) {
-        throw new Error('Authentication failed. Please verify your Groq API key.');
+      if (error.message.includes("401")) {
+        throw new Error(
+          "Authentication failed. Please verify your Groq API key.",
+        );
       }
-      if (error.message.includes('429')) {
-        throw new Error('Rate limit reached. Please wait a moment and try again.');
+      if (error.message.includes("429")) {
+        throw new Error(
+          "Rate limit reached. Please wait a moment and try again.",
+        );
       }
     }
-    
+
     throw error;
   }
 }
 
 // Test function to verify API key
-export async function testGroqConnection(): Promise<{ success: boolean; message: string }> {
+export async function testGroqConnection(): Promise<{
+  success: boolean;
+  message: string;
+}> {
   try {
-    const testReply = await getAIReply('Hello!');
+    const testReply = await getAIReply("Hello!");
     return {
       success: true,
-      message: `✅ Groq API is working! Test response: "${testReply}"`
+      message: `✅ Groq API is working! Test response: "${testReply}"`,
     };
   } catch (error) {
     return {
       success: false,
-      message: `❌ Groq API test failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+      message: `❌ Groq API test failed: ${error instanceof Error ? error.message : "Unknown error"}`,
     };
   }
 }

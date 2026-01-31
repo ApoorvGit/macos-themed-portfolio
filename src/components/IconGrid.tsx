@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   DndContext,
   closestCenter,
@@ -7,14 +7,14 @@ import {
   useSensor,
   useSensors,
   type DragEndEvent,
-} from '@dnd-kit/core';
+} from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   rectSortingStrategy,
-} from '@dnd-kit/sortable';
-import { IconTile } from './IconTile';
+} from "@dnd-kit/sortable";
+import { IconTile } from "./IconTile";
 
 export interface IconItem {
   id: string;
@@ -27,7 +27,10 @@ interface IconGridProps {
   onOpen: (id: string) => void;
 }
 
-export const IconGrid: React.FC<IconGridProps> = ({ items: initialItems, onOpen }) => {
+export const IconGrid: React.FC<IconGridProps> = ({
+  items: initialItems,
+  onOpen,
+}) => {
   const [items, setItems] = useState<IconItem[]>(initialItems);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
@@ -39,7 +42,7 @@ export const IconGrid: React.FC<IconGridProps> = ({ items: initialItems, onOpen 
     }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -81,7 +84,10 @@ export const IconGrid: React.FC<IconGridProps> = ({ items: initialItems, onOpen 
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
     >
-      <SortableContext items={items.map((i) => i.id)} strategy={rectSortingStrategy}>
+      <SortableContext
+        items={items.map((i) => i.id)}
+        strategy={rectSortingStrategy}
+      >
         <div className="grid grid-cols-6 gap-4 p-4">
           {items.map((item) => (
             <IconTile

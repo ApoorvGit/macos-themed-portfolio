@@ -1,6 +1,6 @@
-import React from 'react';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+import React from "react";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 interface IconTileProps {
   id: string;
@@ -19,8 +19,14 @@ export const IconTile: React.FC<IconTileProps> = ({
   onSelect,
   onDoubleClick,
 }) => {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
-    useSortable({ id });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -37,7 +43,7 @@ export const IconTile: React.FC<IconTileProps> = ({
       onClick={(e) => onSelect(id, e.metaKey || e.ctrlKey || e.shiftKey)}
       onDoubleClick={() => onDoubleClick(id)}
       className={`flex flex-col items-center gap-2 p-2 rounded-lg transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 ${
-        isSelected ? 'bg-blue-500/40 backdrop-blur-sm' : 'hover:bg-white/10'
+        isSelected ? "bg-blue-500/40 backdrop-blur-sm" : "hover:bg-white/10"
       }`}
       aria-label={label}
     >
