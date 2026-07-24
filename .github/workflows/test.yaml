@@ -1,0 +1,13 @@
+name: Test ARC Runner
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: local-runner-set  # Matches your scale set release name
+    steps:
+      - name: Hello ARC
+        run: |
+          echo "Running on Kubernetes via ARC!"
+          sleep 20  # Keeps the pod alive long enough for you to inspect
