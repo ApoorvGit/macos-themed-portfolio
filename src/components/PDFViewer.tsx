@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Document, Page, pdfjs } from 'react-pdf';
+import React, { useState } from "react";
+import { Document, Page, pdfjs } from "react-pdf";
 
 // Configure PDF.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
@@ -95,7 +95,9 @@ export const PDFViewer: React.FC<PDFViewerProps> = ({ pdfUrl }) => {
             }
             error={
               <div className="flex items-center justify-center p-12">
-                <div className="text-red-500">Failed to load PDF. Please try again.</div>
+                <div className="text-red-500">
+                  Failed to load PDF. Please try again.
+                </div>
               </div>
             }
           >

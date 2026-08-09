@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface IconProps {
   src: string;
@@ -6,20 +6,24 @@ interface IconProps {
   className?: string;
 }
 
-export const MacIcon: React.FC<IconProps> = ({ src, alt, className = "w-full h-full" }) => {
+export const MacIcon: React.FC<IconProps> = ({
+  src,
+  alt,
+  className = "w-full h-full",
+}) => {
   return (
-    <img 
-      src={src} 
-      alt={alt} 
+    <img
+      src={src}
+      alt={alt}
       className={className}
-      style={{ 
-        objectFit: 'contain',
-        filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))'
+      style={{
+        objectFit: "contain",
+        filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))",
       }}
       onError={(e) => {
         // Fallback if icon not found - show colored placeholder
         const target = e.target as HTMLImageElement;
-        target.style.display = 'none';
+        target.style.display = "none";
         const parent = target.parentElement;
         if (parent) {
           parent.innerHTML = `

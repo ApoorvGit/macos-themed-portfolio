@@ -1,7 +1,7 @@
 # EDUCATION
 
 B.E, Computer Engineering (CGPA: 8.72) - Thapar Institute of Engineering and Technology, Patiala  
-Class XII (Percentage:  $91.6\%$  ) - J.B. Academy, Ayodhya  
+Class XII (Percentage: $91.6\%$ ) - J.B. Academy, Ayodhya  
 Class X (CGPA: 9.8) - J.B. Academy, Ayodhya
 
 Aug 2019 – June 2023
@@ -27,9 +27,9 @@ o Tech Stack: Java, Spring Boot, Spinnaker APIs
 
 Designed and developed a event-driven, multi-lambda architecture to migrate repos from GHES to GHEC  
 Four phases - Request, Export, Import, Finalization - each with dedicated Lambda and SQs for scalable, decoupled processing.  
-$\bigcirc$  Performs deep post-migration remediation - updating AMS and Backstage records, remediating Spinnaker pipelines, reconfiguring GitHub Actions usage, proxying webhooks with secrets, and enforcing branch protection rules.  
+$\bigcirc$ Performs deep post-migration remediation - updating AMS and Backstage records, remediating Spinnaker pipelines, reconfiguring GitHub Actions usage, proxying webhooks with secrets, and enforcing branch protection rules.  
 O Integrated GitHub Issues for tracking, built IaC for AWS infrastructure and engineered DLQ-based fault tolerance  
-Reduced manual effort to  $0\%$ , Migration success rate  $98.06\%$ , Migration increased by  $90x$  
+Reduced manual effort to $0\%$ , Migration success rate $98.06\%$ , Migration increased by $90x$  
 ○ Tech Stack: Python, AWS Lambda, SQS, S3, GitHub API (REST & GraphQL), Pytest, GitHub Issues
 
 # Software Development Engineer 1, Expedia Group
@@ -39,14 +39,14 @@ Aug 2023-March 2025
 # - Custom Spinnaker Plugin for CloudFormation Deployments:
 
 o Contributed to a custom Spinnaker plugin to auto-deploy CloudFormation stacks to target AWS environments on repo changes.  
-o Reduced manual effort by  $100\%$  
+o Reduced manual effort by $100\%$  
 o Tech Stack: React.js, Java, AWS, Spinnaker
 
 # - Reusable CI Workflows & Custom GitHub Actions:
 
 o Built modular CI reusable workflows for Maven, Gradle, Docker, npm, and Yarn apps, now adopted across thousands of repos.  
 o Developed four custom GitHub Actions (Typescript and Python): OIDC authentication, artifact upload to Artifactory, settings.xml generator for Maven, and init.gradle generator for Gradle.  
-o Reduced Jenkins dependency by  $76\%$  in a year, saving infra cost and maintenance effort.  
+o Reduced Jenkins dependency by $76\%$ in a year, saving infra cost and maintenance effort.  
 o Secured pipelines, added quality/security checks, and improved auditability and governance.  
 o Tech Stack: TypeScript, Python, GitHub Actions, OIDC, Artifactory, Docker, AWS, Spinnaker
 
@@ -73,12 +73,12 @@ o Built a real-time analytics dashboard for one of Asia's largest pharma firms, 
 
 # SKILLS
 
-- Languages - C++, Java, JavaScript, Python  
-- Backend Development: Java Spring Boot, Express.js, REST APIs, Python (Lambda, scripting)  
-- Frontend: React.js, HTML, CSS  
+- Languages - C++, Java, JavaScript, Python
+- Backend Development: Java Spring Boot, Express.js, REST APIs, Python (Lambda, scripting)
+- Frontend: React.js, HTML, CSS
 - Databases: MySQL, PostgreSQL, Oracle SQL, SQLite3 ORMs: JPA (Hibernate), Prisma, Sequelize  
-DevOps & Cloud - Terraform, CloudFormation, AWS, GitHub Actions, Jenkins, Spinnaker, Artifactory  
-Other: Docker, Redis
+  DevOps & Cloud - Terraform, CloudFormation, AWS, GitHub Actions, Jenkins, Spinnaker, Artifactory  
+  Other: Docker, Redis
 
 # HACKATHON HITS
 
@@ -105,12 +105,12 @@ Processes live feeds from all premise CCTVs to track individuals via facial reco
 # ACHIEVEMENTS
 
 Smart India Hackathon (National Level) 2022 Finalist (15,00,000+ participants)  
-July 2022  
-- Winner of ION<athon> 2022 (Global Level Hackathon) organized by ION Group (out of 2,875 Teams)  
-May 2022  
-6 Star on HackerRank (@apoorvmishra1000)  
-1550+ Coding Score on GeeksForGeeks Practice (500+ Questions solved) @apoorvmishra  
-Received Academic Scholarship (1 Lakh 17 thousand INR)  
-Bronze Medalist 2019-2020 Academic session (CGPA: 9.76)  
-Aug 2020
+July 2022
 
+- Winner of ION<athon> 2022 (Global Level Hackathon) organized by ION Group (out of 2,875 Teams)  
+  May 2022  
+  6 Star on HackerRank (@apoorvmishra1000)  
+  1550+ Coding Score on GeeksForGeeks Practice (500+ Questions solved) @apoorvmishra  
+  Received Academic Scholarship (1 Lakh 17 thousand INR)  
+  Bronze Medalist 2019-2020 Academic session (CGPA: 9.76)  
+  Aug 2020

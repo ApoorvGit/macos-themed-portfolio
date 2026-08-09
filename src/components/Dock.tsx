@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useWindowStore } from '../lib/window-manager';
+import React, { useState } from "react";
+import { useWindowStore } from "../lib/window-manager";
 
 interface DockItem {
   id: string;
@@ -32,8 +32,8 @@ export const Dock: React.FC<DockProps> = ({ items }) => {
           {items.map((item) => {
             const isMinimized = windows[item.id]?.isMinimized;
             const isHovered = hoveredId === item.id;
-            const scale = isHovered ? 'scale-[1.4]' : 'scale-100';
-            
+            const scale = isHovered ? "scale-[1.4]" : "scale-100";
+
             return (
               <button
                 key={item.id}

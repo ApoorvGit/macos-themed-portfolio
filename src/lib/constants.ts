@@ -1,18 +1,18 @@
 // Application constants
-export const APP_NAME = 'Portfolio';
-export const LOCK_PASSWORD = 'meow';
+export const APP_NAME = "Portfolio";
+export const LOCK_PASSWORD = "meow";
 
 // Desktop icon IDs
 export const ICON_IDS = {
-  PROJECTS: 'projects',
-  EXPERIENCE: 'experience',
-  SKILLS: 'skills',
-  BLOG: 'blog',
-  GALLERY: 'gallery',
-  CONTACT: 'contact',
-  FACETIME: 'facetime',
-  MESSAGES: 'messages',
-  SIRI: 'siri',
+  PROJECTS: "projects",
+  EXPERIENCE: "experience",
+  SKILLS: "skills",
+  BLOG: "blog",
+  GALLERY: "gallery",
+  CONTACT: "contact",
+  FACETIME: "facetime",
+  MESSAGES: "messages",
+  SIRI: "siri",
 } as const;
 
 // Window default sizes and positions
@@ -75,13 +75,13 @@ export const WINDOW_DEFAULTS = {
 
 // Window titles
 export const WINDOW_TITLES = {
-  [ICON_IDS.PROJECTS]: 'Projects',
-  [ICON_IDS.EXPERIENCE]: 'Experience',
-  [ICON_IDS.SKILLS]: 'Skills',
-  [ICON_IDS.BLOG]: 'Blog',
-  [ICON_IDS.GALLERY]: 'Gallery',
-  [ICON_IDS.CONTACT]: 'Contact',
-  [ICON_IDS.FACETIME]: 'FaceTime',
-  [ICON_IDS.MESSAGES]: 'Messages',
-  [ICON_IDS.SIRI]: 'Siri',
+  [ICON_IDS.PROJECTS]: "Projects",
+  [ICON_IDS.EXPERIENCE]: "Experience",
+  [ICON_IDS.SKILLS]: "Skills",
+  [ICON_IDS.BLOG]: "Blog",
+  [ICON_IDS.GALLERY]: "Gallery",
+  [ICON_IDS.CONTACT]: "Contact",
+  [ICON_IDS.FACETIME]: "FaceTime",
+  [ICON_IDS.MESSAGES]: "Messages",
+  [ICON_IDS.SIRI]: "Siri",
 } as const;

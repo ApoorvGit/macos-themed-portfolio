@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 export interface WindowState {
   id: string;
@@ -18,7 +18,12 @@ export interface WindowState {
 interface WindowStore {
   windows: Record<string, WindowState>;
   highestZIndex: number;
-  openWindow: (window: Omit<WindowState, 'isOpen' | 'isMinimized' | 'isFocused' | 'zIndex'>) => void;
+  openWindow: (
+    window: Omit<
+      WindowState,
+      "isOpen" | "isMinimized" | "isFocused" | "zIndex"
+    >,
+  ) => void;
   closeWindow: (id: string) => void;
   minimizeWindow: (id: string) => void;
   restoreWindow: (id: string) => void;
@@ -34,7 +39,7 @@ export const useWindowStore = create<WindowStore>((set, get) => ({
   openWindow: (window) => {
     const { windows, highestZIndex } = get();
     const newZIndex = highestZIndex + 1;
-    
+
     set({
       windows: {
         ...windows,
@@ -48,7 +53,7 @@ export const useWindowStore = create<WindowStore>((set, get) => ({
       },
       highestZIndex: newZIndex,
     });
-    
+
     // Unfocus all other windows
     Object.keys(windows).forEach((id) => {
       if (id !== window.id && windows[id].isFocused) {
@@ -86,20 +91,24 @@ export const useWindowStore = create<WindowStore>((set, get) => ({
   restoreWindow: (id) => {
     const { highestZIndex } = get();
     const newZIndex = highestZIndex + 1;
-    
+
     set((state) => {
       // Unfocus all windows
-      const updatedWindows = Object.keys(state.windows).reduce((acc, windowId) => {
-        acc[windowId] = {
-          ...state.windows[windowId],
-          isFocused: windowId === id,
-          zIndex: windowId === id ? newZIndex : state.windows[windowId].zIndex,
-        };
-        if (windowId === id) {
-          acc[windowId].isMinimized = false;
-        }
-        return acc;
-      }, {} as Record<string, WindowState>);
+      const updatedWindows = Object.keys(state.windows).reduce(
+        (acc, windowId) => {
+          acc[windowId] = {
+            ...state.windows[windowId],
+            isFocused: windowId === id,
+            zIndex:
+              windowId === id ? newZIndex : state.windows[windowId].zIndex,
+          };
+          if (windowId === id) {
+            acc[windowId].isMinimized = false;
+          }
+          return acc;
+        },
+        {} as Record<string, WindowState>,
+      );
 
       return {
         windows: updatedWindows,
@@ -110,22 +119,26 @@ export const useWindowStore = create<WindowStore>((set, get) => ({
 
   focusWindow: (id) => {
     const { highestZIndex, windows } = get();
-    
+
     // Don't refocus if already focused
     if (windows[id]?.isFocused) return;
-    
+
     const newZIndex = highestZIndex + 1;
-    
+
     set((state) => {
       // Unfocus all windows and focus the target
-      const updatedWindows = Object.keys(state.windows).reduce((acc, windowId) => {
-        acc[windowId] = {
-          ...state.windows[windowId],
-          isFocused: windowId === id,
-          zIndex: windowId === id ? newZIndex : state.windows[windowId].zIndex,
-        };
-        return acc;
-      }, {} as Record<string, WindowState>);
+      const updatedWindows = Object.keys(state.windows).reduce(
+        (acc, windowId) => {
+          acc[windowId] = {
+            ...state.windows[windowId],
+            isFocused: windowId === id,
+            zIndex:
+              windowId === id ? newZIndex : state.windows[windowId].zIndex,
+          };
+          return acc;
+        },
+        {} as Record<string, WindowState>,
+      );
 
       return {
         windows: updatedWindows,
